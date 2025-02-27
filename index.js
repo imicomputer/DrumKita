@@ -47,22 +47,33 @@ for (let i=0; i < drumKits.length; i++) {
 document.addEventListener(
     "keypress"
     , function(event) {
-        alert(document.querySelectorAll("." + event.key).innerHTML);
-        // switch (event.key) {
-        //     case "w":
-                
-        //         break;
-        //     case "s":
-            
-        //         break;
-        //     case "a":
-                
-        //         break;
-        //     case "d":
-                
-        //         break;
-        //     default:
-        //         break;
-        // }
+        let registeredKeys = "wsadjkl";
+        let keyPressed = event.key;
+        console.log("Key Pressed: " + keyPressed);
+
+        if (registeredKeys.indexOf(keyPressed.toLowerCase()) >= 0) {
+            simulateClick(document.getElementsByClassName(keyPressed));
+        }
     }
 );
+
+function simulateClick(element) {
+    const event = new MouseEvent("click", {
+      view: window,
+      bubbles: true,
+      cancelable: true,
+    });
+
+    // const cb = document.getElementById("checkbox");
+    // const cancelled = !cb.dispatchEvent(event);
+    const cancelled = !element[0].dispatchEvent(event);
+  
+    // if (cancelled) {
+    //   // A handler called preventDefault.
+    //   alert("cancelled");
+    // } else {
+    //   // None of the handlers called preventDefault.
+    //   alert("not cancelled");
+    // }
+  }
+  
